@@ -1,13 +1,15 @@
+import java.util.Random;
+
 public class Jogador {
     private String nome;
     private int forca;
     private int precisao;
     private String posicao;
 
-    public Jogador(String nome, int forca, int precisao, String posicao) {
-        this.nome = nome;
-        this.forca = forca;
-        this.precisao = precisao;
+    public Jogador(String posicao) {
+        this.nome = Nomes.getRandomName();
+        this.forca = getRand();
+        this.precisao = getRand();
         this.posicao = posicao;
     }
 
@@ -25,6 +27,11 @@ public class Jogador {
 
     public String getPosicao() {
         return posicao;
+    }
+
+    private int getRand(){
+        Random r = new Random();
+        return r.nextInt(1,99);
     }
 }
 

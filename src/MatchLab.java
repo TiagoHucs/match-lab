@@ -1,22 +1,16 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MatchLab {
 
     public static void main(String[] args) {
         // Criando jogadores
 
-        int forca = 50;
-
-        Jogador j1 = new Jogador(Nomes.getRandomName(), 50, 50, "GK");
-        Jogador j2 = new Jogador(Nomes.getRandomName(), 50, 50, "DF");
-        Jogador j3 = new Jogador(Nomes.getRandomName(), 50, 50, "MD");
-        Jogador j4 = new Jogador(Nomes.getRandomName(), 50, 50, "MC");
-        Jogador j5 = new Jogador(Nomes.getRandomName(), 50, 50, "MA");
-        Jogador j6 = new Jogador(Nomes.getRandomName(), 50, 50, "AT");
-
+        
         // Criando equipes
-        Equipe equipeA = new Equipe("Flamengo", List.of(j1, j2, j3, j4, j5, j6), 1, 10, 4, 1);
-        Equipe equipeB = new Equipe("Cruzeiro", List.of(j1, j2, j3, j4, j5, j6), 1, 10, 4, 1);
+        Equipe equipeA = new Equipe("Flamengo", geraTime(), 1, 10, 4, 1);
+        Equipe equipeB = new Equipe("Cruzeiro", geraTime(), 1, 10, 4, 1);
 
         //Simulacao.simularJogo(equipeA, equipeB);
 
@@ -24,5 +18,33 @@ public class MatchLab {
         partida.iniciar();
 
     }
+    
+    private static List<Jogador> geraTime(){
+        List<Jogador> jogadores = new ArrayList<>();
+        jogadores.add(new Jogador( "GK"));
+        
+        for(int i = 0; i < 2 ; i++){
+            jogadores.add(new Jogador( "DF"));
+        }
+
+        for(int i = 0; i < 2 ; i++){
+            jogadores.add(new Jogador( "MD"));
+        }
+
+        for(int i = 0; i < 2 ; i++){
+            jogadores.add(new Jogador( "MC"));
+        }
+
+        for(int i = 0; i < 2 ; i++){
+            jogadores.add(new Jogador( "MA"));
+        }
+
+        for(int i = 0; i < 2 ; i++){
+            jogadores.add(new Jogador( "AT"));
+        }
+        
+        return jogadores;
+    }
+    
 
 }

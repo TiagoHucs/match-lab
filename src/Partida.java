@@ -10,24 +10,24 @@ public class Partida {
     private static int scoreB = 0;
 
     Equipe casa;
-    Equipe visitante;
+    Equipe visi;
 
     int publico;
     int publicoCasa;
-    int publicoVisitante;
+    int publicoVisi;
 
     double moralCasa;
-    double moralVisitante;
+    double moralVisi;
 
     public Partida(Equipe casa, Equipe visitante, int capadidadeEstadio) {
         this.casa = casa;
-        this.visitante = visitante;
+        this.visi = visitante;
         this.publico = (int) (Math.random() * (100 - 30 + 1) + 30) * capadidadeEstadio / 100;
         this.publicoCasa = (int) (publico * 0.6);
-        this.publicoVisitante = (int) (publico * 0.4);
+        this.publicoVisi = (int) (publico * 0.4);
 
         this.moralCasa = Calculos.calcularMoralEquipe(casa) * 0.2;
-        this.moralVisitante = Calculos.calcularMoralEquipe(visitante) * 0.2;
+        this.moralVisi = Calculos.calcularMoralEquipe(visitante) * 0.2;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Partida {
     public void iniciar() {
 
         for (int i = 0; i < DURACAO_JOGO; i++) {
-            Graficos.printField2(setor);
+            Graficos.printField(setor);
             // Simula a jogada e obtém o vencedor
             Equipe vencedorDisputa = disputa(setor);
 
@@ -58,36 +58,37 @@ public class Partida {
                 setor = SETOR_INICIAL;
             } else if (setor < 0) {
                 scoreB++;
-                System.out.println("GOL do " + visitante.getNome() + "! Nova saída de bola.");
+                System.out.println("GOL do " + visi.getNome() + "! Nova saída de bola.");
                 setor = SETOR_INICIAL;
             }
 
         }
 
         // Resultado final
-        System.out.printf("Fim de jogo %s %d x %d %s%n", casa.getNome(), scoreA, scoreB, visitante.getNome());
+        System.out.printf("Fim de jogo %s %d x %d %s%n", casa.getNome(), scoreA, scoreB, visi.getNome());
     }
 
     private Equipe disputa(int setorCasa) {
 
-        int setorVisitante = 6 - setorCasa;
+        int setorVisi = 6 - setorCasa;
 
         double mediaForcaCasa = Calculos.calcularMediaForcaEquipe(casa) * 0.1;
-        double mediaForcaSetorCasa = Calculos.calcularMediaForcaSetor(casa.getSetor(SETORES[setorCasa])) * 0.4;
-        double sorteA = Calculos.calcularFatorSorte() * 0.1;
+        double mediaForcaVisi = Calculos.calcularMediaForcaEquipe(visi) * 0.1;
 
-        double mediaForcaVisitante = Calculos.calcularMediaForcaEquipe(visitante) * 0.1;
-        double mediaForcaSetorVisitante = Calculos.calcularMediaForcaSetor(casa.getSetor(SETORES[setorVisitante])) * 0.4;
-        double sorteB = Calculos.calcularFatorSorte() * 0.1;
+        double mediaForcaSetorCasa = Calculos.calcularMediaForcaSetor(casa.getSetor(SETORES[setorCasa])) * 0.4;
+        double mediaForcaSetorVisi = Calculos.calcularMediaForcaSetor(casa.getSetor(SETORES[setorVisi])) * 0.4;
+
+        double sorteCasa = Calculos.calcularFatorSorte() * 0.1;
+        double sorteVisi = Calculos.calcularFatorSorte() * 0.1;
 
         // Soma dos fatores
-        double totalCasa = mediaForcaCasa + mediaForcaSetorCasa + moralCasa + publicoCasa + sorteA;
-        double totalVisit = mediaForcaVisitante + mediaForcaSetorVisitante + moralVisitante + publicoVisitante + sorteB;
+        double totalCasa = mediaForcaCasa + mediaForcaSetorCasa + moralCasa + (publicoCasa * 0.001) + sorteCasa;
+        double totalVisi = mediaForcaVisi + mediaForcaSetorVisi + moralVisi + (publicoVisi * 0.001) + sorteVisi;
 
-        if (totalCasa >= totalVisit) {
+        if (totalCasa >= totalVisi) {
             return casa;
         }
-        return visitante;
+        return visi;
 
     }
 }
