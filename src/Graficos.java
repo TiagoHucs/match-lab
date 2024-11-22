@@ -1,23 +1,24 @@
 public abstract class Graficos {
 
-    private static boolean ativo = false;
+    private static boolean ativo = true;
 
     public static void printField(int setor) {
+        int s = setor + 1;
         if (ativo){
-            String field = "       ";
+            String field = "         ";
             StringBuilder modifiedField = new StringBuilder(field);
 
-            if (setor >= 0 && setor < field.length()) {
-                modifiedField.setCharAt(setor, '*'); // Substitui o caractere na posição do setor por '*'
+            if (s >= 0 && s < field.length()) {
+                modifiedField.setCharAt(s, '*'); // Substitui o caractere na posição do setor por '*'
             }
 
-            System.out.println(inserirTraves(modifiedField.toString()));
+            System.out.print(" " + inserirTraves(modifiedField.toString()) + " ");
         }
 
     }
 
 
-    public static String inserirTraves(String original) {
+    private static String inserirTraves(String original) {
         char charBetweenFirstAndSecond = '[';
         char charBetweenLastAndPenultimate = ']';
 

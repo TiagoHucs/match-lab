@@ -2,32 +2,27 @@ public class Partida {
 
     private static final String[] SETORES = {"GK", "DF", "MD", "MC", "MA", "AT", "AT"};
     private static final int SETOR_INICIAL = 3;
-    private static final int DURACAO_JOGO = 90;
+    private static final int DURACAO_JOGO = 45;
 
     private static int setor = SETOR_INICIAL;
 
+    private int tempo = 0;
     private int scoreA = 0;
     private int scoreB = 0;
 
+    private Equipe equipePosse;
     private Equipe casa;
     private Equipe visi;
-
-    private int publico;
-    private int publicoCasa;
-    private int publicoVisi;
 
     private double moralCasa;
     private double moralVisi;
 
-    public Partida(Equipe casa, Equipe visitante, int capadidadeEstadio) {
+    public Partida(Equipe casa, Equipe visitante) {
         this.casa = casa;
         this.visi = visitante;
-        this.publico = (int) (Math.random() * (100 - 30 + 1) + 30) * capadidadeEstadio / 100;
-        this.publicoCasa = (int) (publico * 0.6);
-        this.publicoVisi = (int) (publico * 0.4);
 
-        this.moralCasa = Calculos.calcularMoralEquipe(casa) * 0.2;
-        this.moralVisi = Calculos.calcularMoralEquipe(visitante) * 0.2;
+        this.moralCasa = Calculos.calcularMoralEquipe(casa);
+        this.moralVisi = Calculos.calcularMoralEquipe(visitante);
     }
 
     /**
@@ -39,36 +34,36 @@ public class Partida {
      */
     public void iniciar() {
 
-        for (int i = 0; i < DURACAO_JOGO; i++) {
+        equipePosse = casa;
+
+        while (tempo <= DURACAO_JOGO) {
             Graficos.printField(setor);
+
             // Simula a jogada e obtém o vencedor
-            Equipe vencedorDisputa = disputa(setor);
+            Equipe vencedorDisputa = disputa(tempo,equipePosse, setor);
+            equipePosse = vencedorDisputa;
 
             // Atualiza setor com base no vencedor
-            if (vencedorDisputa.equals(casa)) {
-                setor++;
-            } else {
-                setor--;
+            if(equipePosse.equals(vencedorDisputa)){
+                avancaSetor(vencedorDisputa);
             }
 
             // Verifica se algum time marcou gol
-            if (setor > 6) {
-                scoreA++;
-                Narracao.narrar("GOL do " + casa.getNome());
-                setor = SETOR_INICIAL;
-            } else if (setor < 0) {
-                scoreB++;
-                Narracao.narrar("GOL do " + visi.getNome());
-                setor = SETOR_INICIAL;
-            }
+            processarGol(setor, tempo, casa, visi);
 
+            tempo++;
+            Utils.aguarda();
         }
 
         // Resultado final
-        System.out.printf("Fim de jogo %s %d x %d %s%n", casa.getNome(), scoreA, scoreB, visi.getNome());
+        Narracao.narrar(tempo, String.format("Fim de jogo %s %d x %d %s%n", casa.getNome(), scoreA, scoreB, visi.getNome()));
     }
 
-    private Equipe disputa(int setorCasa) {
+    private void avancaSetor(Equipe vencedorDisputa) {
+        setor = vencedorDisputa.equals(casa) ? setor + 1 : setor -1;
+    }
+
+    private Equipe disputa(int tempo, Equipe posse , int setorCasa) {
 
         int setorVisi = 6 - setorCasa;
 
@@ -78,17 +73,36 @@ public class Partida {
         double mediaForcaSetorCasa = Calculos.calcularMediaForcaSetor(casa.getSetor(SETORES[setorCasa])) * 0.4;
         double mediaForcaSetorVisi = Calculos.calcularMediaForcaSetor(casa.getSetor(SETORES[setorVisi])) * 0.4;
 
-        double sorteCasa = Calculos.calcularFatorSorte() * 0.1;
-        double sorteVisi = Calculos.calcularFatorSorte() * 0.1;
-
         // Soma dos fatores
-        double totalCasa = mediaForcaCasa + mediaForcaSetorCasa + moralCasa + sorteCasa;
-        double totalVisi = mediaForcaVisi + mediaForcaSetorVisi + moralVisi + sorteVisi;
+        double totalCasa = mediaForcaCasa + mediaForcaSetorCasa + moralCasa;
+        double totalVisi = mediaForcaVisi + mediaForcaSetorVisi + moralVisi;
 
-        if (totalCasa >= totalVisi) {
-            return casa;
+        double chanceCasa = Calculos.percentual(totalCasa,totalCasa + totalVisi);
+
+        double sorte = Calculos.calcularFatorSorte();
+        Equipe vencedorDisputa = chanceCasa >= sorte ? casa : visi;
+        String lance = posse.equals(vencedorDisputa) ? " avança " : " rouba a bola ";
+        Narracao.narrar(tempo,vencedorDisputa.getNome() + lance);
+        return vencedorDisputa;
+    }
+
+    private void processarGol(int setor, int tempo, Equipe casa, Equipe visi) {
+        if (setor > 6) {
+            marcarGol(casa, tempo, visi);
+        } else if (setor < 0) {
+            marcarGol(visi, tempo, casa);
         }
-        return visi;
+    }
 
+    private void marcarGol(Equipe equipeMarcadora, int tempo, Equipe adversario) {
+        if (equipeMarcadora == casa) {
+            scoreA++;
+        } else {
+            scoreB++;
+        }
+        Graficos.printField(setor);
+        Narracao.narrar(tempo, "GOOOOOL do " + equipeMarcadora.getNome());
+        setor = SETOR_INICIAL;
+        equipePosse = adversario;
     }
 }

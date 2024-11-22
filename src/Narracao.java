@@ -1,10 +1,10 @@
 public abstract class Narracao {
 
-    private static boolean ativo = false;
+    private static boolean ativo = true;
 
-    public static void narrar(String s){
+    public static void narrar(int tempo, String s){
         if(ativo){
-            System.out.println(s);
+            System.out.println(tempo + "' " + s);
         }
     }
 }
