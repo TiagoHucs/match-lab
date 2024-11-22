@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -20,30 +21,19 @@ public class MatchLab {
     }
     
     private static List<Jogador> geraTime(){
-        List<Jogador> jogadores = new ArrayList<>();
-        jogadores.add(new Jogador( "GK"));
-        
-        for(int i = 0; i < 2 ; i++){
-            jogadores.add(new Jogador( "DF"));
-        }
-
-        for(int i = 0; i < 2 ; i++){
-            jogadores.add(new Jogador( "MD"));
-        }
-
-        for(int i = 0; i < 2 ; i++){
-            jogadores.add(new Jogador( "MC"));
-        }
-
-        for(int i = 0; i < 2 ; i++){
-            jogadores.add(new Jogador( "MA"));
-        }
-
-        for(int i = 0; i < 2 ; i++){
-            jogadores.add(new Jogador( "AT"));
-        }
-        
-        return jogadores;
+        return Arrays.asList(
+                new Jogador(50, 50, "GK"),
+                new Jogador(50, 50, "DF"),
+                new Jogador(50, 50, "DF"),
+                new Jogador(50, 50, "MD"),
+                new Jogador(50, 50, "MD"),
+                new Jogador(50, 50, "MC"),
+                new Jogador(50, 50, "MC"),
+                new Jogador(50, 50, "MA"),
+                new Jogador(50, 50, "MA"),
+                new Jogador(50, 50, "AT"),
+                new Jogador(50, 50, "AT")
+        );
     }
     
 

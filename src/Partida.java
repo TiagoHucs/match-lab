@@ -2,7 +2,7 @@ public class Partida {
 
     private static final String[] SETORES = {"GK", "DF", "MD", "MC", "MA", "AT", "AT"};
     private static final int SETOR_INICIAL = 3;
-    private static final int DURACAO_JOGO = 45;
+    private static final int DURACAO_JOGO = 90;
 
     private static int setor = SETOR_INICIAL;
 
@@ -82,8 +82,13 @@ public class Partida {
         double sorteVisi = Calculos.calcularFatorSorte() * 0.1;
 
         // Soma dos fatores
-        double totalCasa = mediaForcaCasa + mediaForcaSetorCasa + moralCasa + (publicoCasa * 0.001) + sorteCasa;
-        double totalVisi = mediaForcaVisi + mediaForcaSetorVisi + moralVisi + (publicoVisi * 0.001) + sorteVisi;
+        double totalCasa = mediaForcaCasa + mediaForcaSetorCasa + moralCasa + sorteCasa;
+        double totalVisi = mediaForcaVisi + mediaForcaSetorVisi + moralVisi + sorteVisi;
+
+        double total = totalCasa + totalVisi;
+
+        double percentCasa = (totalCasa / total) * 100;
+        double percentVisi = (totalVisi / total) * 100;
 
         if (totalCasa >= totalVisi) {
             return casa;

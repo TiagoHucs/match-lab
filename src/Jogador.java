@@ -13,6 +13,13 @@ public class Jogador {
         this.posicao = posicao;
     }
 
+    public Jogador(int forca, int precisao, String posicao) {
+        this.nome = Nomes.getRandomName();
+        this.forca = forca;
+        this.precisao = precisao;
+        this.posicao = posicao;
+    }
+
     public int getForca() {
         return forca;
     }
