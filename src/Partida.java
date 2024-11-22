@@ -85,11 +85,6 @@ public class Partida {
         double totalCasa = mediaForcaCasa + mediaForcaSetorCasa + moralCasa + sorteCasa;
         double totalVisi = mediaForcaVisi + mediaForcaSetorVisi + moralVisi + sorteVisi;
 
-        double total = totalCasa + totalVisi;
-
-        double percentCasa = (totalCasa / total) * 100;
-        double percentVisi = (totalVisi / total) * 100;
-
         if (totalCasa >= totalVisi) {
             return casa;
         }
