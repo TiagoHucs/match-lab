@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -5,11 +6,8 @@ public class MatchLab {
 
     public static void main(String[] args) {
 
-        // Criando equipes
-        Equipe equipeA = new Equipe("Flamengo", geraTime(), 1, 10, 4, 1);
-        Equipe equipeB = new Equipe("Cruzeiro", geraTime(), 1, 10, 4, 1);
+        List<Equipe> equipes = geraTimes();
 
-        new Partida(equipeA, equipeB).iniciar();
 
     }
     
@@ -28,6 +26,14 @@ public class MatchLab {
                 new Jogador(50, 50, "AT")
         );
     }
-    
+
+    private static List<Equipe> geraTimes(){
+        List<String> nomesTimes = Arrays.asList("Flamengo","Palmeiras","Corinthians","Fluminense","São Paulo","Grêmio");
+        List<Equipe> equipes = new ArrayList<>();
+        for (String nome: nomesTimes){
+            equipes.add(new Equipe(nome, geraTime(), 1, 0, 0, 0));
+        }
+        return equipes;
+    }
 
 }

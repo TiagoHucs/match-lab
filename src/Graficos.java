@@ -1,10 +1,10 @@
 public abstract class Graficos {
 
-    private static boolean ativo = true;
+    private static boolean ativo = false;
 
     public static void printField(int setor) {
-        int s = setor + 1;
         if (ativo){
+            int s = setor + 1;
             String field = "         ";
             StringBuilder modifiedField = new StringBuilder(field);
 

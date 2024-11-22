@@ -20,7 +20,7 @@ public abstract class Calculos {
     }
 
     public static double calcularMoralEquipe(Equipe equipe) {
-        int qtdEquipes = 32;
+        int qtdEquipes = 20;
         int pontosPorPosicao = qtdEquipes - equipe.getPosicaoTabela();
         int pontos = (equipe.getVitorias() * 3) + equipe.getEmpates();
         return pontosPorPosicao + pontos;

@@ -51,5 +51,17 @@ public class Equipe {
         }
         return jogadoressetor;
     }
+
+    public void addVitoria(){
+        this.vitorias++;
+    }
+
+    public void addEmpate(){
+        this.empates++;
+    }
+
+    public void addDerrota(){
+        this.derrotas++;
+    }
 }
 

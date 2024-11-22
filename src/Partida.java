@@ -52,11 +52,23 @@ public class Partida {
             processarGol(setor, tempo, casa, visi);
 
             tempo++;
-            Utils.aguarda();
+            //Utils.aguarda();
         }
 
         // Resultado final
-        Narracao.narrar(tempo, String.format("Fim de jogo %s %d x %d %s%n", casa.getNome(), scoreA, scoreB, visi.getNome()));
+        System.out.print(String.format("Fim de jogo %s %d x %d %s%n", casa.getNome(), scoreA, scoreB, visi.getNome()));
+
+        //pontuar
+        if (scoreA > scoreB){
+            casa.addVitoria();
+            visi.addDerrota();
+        } else if(scoreA < scoreB){
+            casa.addDerrota();
+            visi.addVitoria();
+        } else {
+            casa.addEmpate();
+            visi.addEmpate();
+        }
     }
 
     private void avancaSetor(Equipe vencedorDisputa) {
@@ -74,7 +86,7 @@ public class Partida {
         double mediaForcaSetorVisi = Calculos.calcularMediaForcaSetor(casa.getSetor(SETORES[setorVisi])) * 0.4;
 
         // Soma dos fatores
-        double totalCasa = mediaForcaCasa + mediaForcaSetorCasa + moralCasa;
+        double totalCasa = mediaForcaCasa + mediaForcaSetorCasa + moralCasa + 10;
         double totalVisi = mediaForcaVisi + mediaForcaSetorVisi + moralVisi;
 
         double chanceCasa = Calculos.percentual(totalCasa,totalCasa + totalVisi);

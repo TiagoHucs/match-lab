@@ -36,4 +36,8 @@ public abstract class Nomes {
 
         return removedTeam;
     }
+
+    public static String[] getTeamNames(){
+        return teamNames;
+    }
 }
