@@ -6,18 +6,18 @@ public class Partida {
 
     private static int setor = SETOR_INICIAL;
 
-    private static int scoreA = 0;
-    private static int scoreB = 0;
+    private int scoreA = 0;
+    private int scoreB = 0;
 
-    Equipe casa;
-    Equipe visi;
+    private Equipe casa;
+    private Equipe visi;
 
-    int publico;
-    int publicoCasa;
-    int publicoVisi;
+    private int publico;
+    private int publicoCasa;
+    private int publicoVisi;
 
-    double moralCasa;
-    double moralVisi;
+    private double moralCasa;
+    private double moralVisi;
 
     public Partida(Equipe casa, Equipe visitante, int capadidadeEstadio) {
         this.casa = casa;
@@ -54,11 +54,11 @@ public class Partida {
             // Verifica se algum time marcou gol
             if (setor > 6) {
                 scoreA++;
-                System.out.println("GOL do " + casa.getNome() + "! Nova saída de bola.");
+                Narracao.narrar("GOL do " + casa.getNome());
                 setor = SETOR_INICIAL;
             } else if (setor < 0) {
                 scoreB++;
-                System.out.println("GOL do " + visi.getNome() + "! Nova saída de bola.");
+                Narracao.narrar("GOL do " + visi.getNome());
                 setor = SETOR_INICIAL;
             }
 

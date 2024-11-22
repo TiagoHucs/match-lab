@@ -1,22 +1,19 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class MatchLab {
 
     public static void main(String[] args) {
-        // Criando jogadores
 
-        
         // Criando equipes
         Equipe equipeA = new Equipe("Flamengo", geraTime(), 1, 10, 4, 1);
-        Equipe equipeB = new Equipe("Cruzeiro", geraTime(), 1, 10, 4, 1);
+        Equipe equipeB = new Equipe("Cruzeiro", geraTime(), 2, 9, 5, 1);
 
         //Simulacao.simularJogo(equipeA, equipeB);
 
-        Partida partida = new Partida(equipeA, equipeB, 20000);
-        partida.iniciar();
+        for(int i = 0 ; i < 10 ; i++){
+            new Partida(equipeA, equipeB, 20000).iniciar();
+        }
 
     }
     

@@ -1,14 +1,19 @@
 public abstract class Graficos {
 
-    public static void printField(int setor) {
-        String field = "       ";
-        StringBuilder modifiedField = new StringBuilder(field);
+    private static boolean ativo = false;
 
-        if (setor >= 0 && setor < field.length()) {
-            modifiedField.setCharAt(setor, '*'); // Substitui o caractere na posição do setor por '*'
+    public static void printField(int setor) {
+        if (ativo){
+            String field = "       ";
+            StringBuilder modifiedField = new StringBuilder(field);
+
+            if (setor >= 0 && setor < field.length()) {
+                modifiedField.setCharAt(setor, '*'); // Substitui o caractere na posição do setor por '*'
+            }
+
+            System.out.println(inserirTraves(modifiedField.toString()));
         }
 
-        System.out.println(inserirTraves(modifiedField.toString()));
     }
 
 
