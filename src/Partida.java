@@ -32,7 +32,7 @@ public class Partida {
      *
      * @return
      */
-    public void iniciar() {
+    public Equipe iniciar() {
 
         equipePosse = casa;
 
@@ -69,6 +69,9 @@ public class Partida {
             casa.addEmpate();
             visi.addEmpate();
         }
+
+        //TODO: como fica em jogos que nao pode empatar?
+        return scoreA > scoreB ? casa : visi;
     }
 
     private void avancaSetor(Equipe vencedorDisputa) {
