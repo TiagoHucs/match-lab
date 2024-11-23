@@ -117,4 +117,16 @@ public class Partida {
         setor = SETOR_INICIAL;
         equipePosse = adversario;
     }
+
+    public Equipe getEquipeCasa(){
+        return casa;
+    }
+
+    public Equipe getEquipeVititante(){
+        return visi;
+    }
+
+    public String toString(){
+        return casa.getNome() + " x " + visi.getNome();
+    }
 }

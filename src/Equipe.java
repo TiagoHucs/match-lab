@@ -63,5 +63,13 @@ public class Equipe {
     public void addDerrota(){
         this.derrotas++;
     }
+
+    int getPontos(){
+        return (vitorias * 3) + empates;
+    }
+
+    public String toString(){
+        return (String.format("%-15s Pontos:%s Vitorias:%s Empates:%s Derrotas:%s ",nome,getPontos(),vitorias,empates,derrotas));
+    }
 }
 

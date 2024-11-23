@@ -9,12 +9,9 @@ public abstract class Nomes {
 
     private static String[] teamNames = {
             "Flamengo", "Corinthians", "São Paulo", "Palmeiras", "Vasco da Gama",
-            "Grêmio", "Internacional", "Cruzeiro", "Atlético Mineiro", "Botafogo",
-            "Fluminense", "Santos", "Atlético Paranaense", "Bahia", "Sport Recife",
-            "Fortaleza", "Ceará", "Chapecoense", "América Mineiro", "Red Bull Bragantino",
-            "Juventude", "Goiás", "Coritiba", "Avaí", "Figueirense",
-            "Ponte Preta", "Náutico", "Vitória", "Paysandu", "Remo",
-            "Santa Cruz", "Criciúma"
+            "Grêmio", "Internacional", "Cruzeiro", "Atlético MO", "Botafogo",
+            "Fluminense", "Santos", "Atlético PR", "Bahia", "Sport Recife",
+            "Fortaleza", "Ceará", "Chapecoense", "América Mineiro", "Bragantino"
     };
 
     public static String getRandomName(){
